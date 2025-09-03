@@ -1,7 +1,11 @@
 import LetterCard from "../components/cards/LetterCard"
+import Modal from "../components/Modal"
 import { ARABIC_LETTERS } from "../utils/arabicLetters"
+import { useState } from "react"
 
 function Training() {
+    const [selectedLetter, setSelectedLetter] = useState<string | null>(null)
+
     return (
         <div className="flex flex-col items-center">
             <h1 className="text-center">Entraînement</h1>
@@ -11,11 +15,36 @@ function Training() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-4 lg:grid-cols-7 gap-8 lg:gap-12 xl:gap-24 w-full" style={{ direction: 'rtl' }}>
+            <div
+                className="grid grid-cols-4 lg:grid-cols-7 gap-8 lg:gap-12 xl:gap-24 w-full"
+                style={{ direction: "rtl" }}
+            >
                 {[...ARABIC_LETTERS].map((letter) => (
-                    <LetterCard key={letter} letter={letter} />
+                    <LetterCard
+                        key={letter}
+                        letter={letter}
+                        onClick={() => setSelectedLetter(letter)}
+                    />
                 ))}
             </div>
+
+                <Modal
+                    isOpen={!!selectedLetter}
+                    onClose={() => setSelectedLetter(null)}
+                >
+                    {selectedLetter && (
+                        <div className="flex flex-col items-center">
+                            <img
+                                src={`/images/${selectedLetter}.png`}
+                                alt={selectedLetter}
+                                className="w-32 h-32 object-contain mb-4"
+                            />
+                            <span className="text-3xl font-bold mb-2">
+                                {selectedLetter}
+                            </span>
+                        </div>
+                    )}
+                </Modal>
         </div>
     )
 }

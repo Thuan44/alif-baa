@@ -2,7 +2,12 @@ import type { ArabicLetter } from "../../utils/arabicLetters"
 
 let currentAudio: HTMLAudioElement | null = null
 
-const LetterCard = ({ letter }: { letter: ArabicLetter }) => {
+interface LetterCardProps {
+    letter: ArabicLetter;
+    onClick?: () => void;
+}
+
+const LetterCard = ({ letter, onClick }: LetterCardProps) => {
     const handleClick = () => {
         if (currentAudio) {
             currentAudio.pause()
@@ -11,6 +16,7 @@ const LetterCard = ({ letter }: { letter: ArabicLetter }) => {
         const audio = new Audio(`/audios/${letter}.wav`)
         currentAudio = audio
         audio.play()
+        if (onClick) onClick()
     }
     return (
         <button onClick={handleClick}>
