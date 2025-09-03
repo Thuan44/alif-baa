@@ -1,4 +1,4 @@
-import { faEye, faVolumeHigh, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faLanguage, faVolumeHigh, faXmark } from "@fortawesome/free-solid-svg-icons"
 import type { ArabicLetter } from "../../utils/arabicLetters"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
@@ -46,7 +46,7 @@ const LetterCardDetail = ({ letter, onClose }: { letter: ArabicLetter, onClose: 
                     disabled={showTransliteration}
                     aria-label="Afficher la translittération"
                 >
-                    <FontAwesomeIcon icon={faEye} />
+                    <FontAwesomeIcon icon={faLanguage} />
                 </button>
                 <button
                     className="btn-action w-[80px]"

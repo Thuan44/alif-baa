@@ -12,6 +12,9 @@
     --color-secondary: #afddff;
     --color-accent: #ffecdb;
     --color-action: #ff9149;
+    --color-danger: #E53935;
+    --color-warning: #FBC02D;
+    --color-success: #43A047;
     --text-10: 10px;
     --text-12: 12px;
     --text-16: 16px;
@@ -75,7 +78,7 @@
     }
 
     .btn-neutral {
-        @apply bg-black/80 text-white rounded-xl cursor-pointer w-fit shadow-md transition-all duration-300 ease-in-out;
+        @apply bg-black text-white rounded-xl cursor-pointer w-fit shadow-md transition-all duration-300 ease-in-out;
 
         &:not(.small) {
             @apply p-12 text-24 hover:scale-115;
@@ -83,6 +86,30 @@
 
         &.small {
             @apply p-8 text-12 hover:scale-110;
+        }
+    }
+
+    .btn-danger {
+        @apply bg-danger text-white rounded-xl cursor-pointer w-fit shadow-md transition-all duration-300 ease-in-out;
+
+        &:not(.small) {
+            @apply p-12 text-24 hover:scale-115;
+        }
+
+        &.small {
+            @apply p-8 text-16 hover:scale-110;
+        }
+    }
+
+    .btn-success {
+        @apply bg-success text-black rounded-xl cursor-pointer w-fit shadow-md transition-all duration-300 ease-in-out;
+
+        &:not(.small) {
+            @apply p-12 text-24 hover:scale-115;
+        }
+
+        &.small {
+            @apply p-8 text-16 hover:scale-110;
         }
     }
 }
