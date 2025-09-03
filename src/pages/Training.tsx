@@ -1,5 +1,4 @@
 import LetterCard from "../components/cards/LetterCard"
-<<<<<<< HEAD
 import LetterCardDetail from "../components/cards/LetterCardDetail"
 import Modal from "../components/Modal"
 import { ARABIC_LETTERS, type ArabicLetter } from "../utils/arabicLetters"
@@ -7,14 +6,6 @@ import { useState } from "react"
 
 function Training() {
     const [selectedLetter, setSelectedLetter] = useState<ArabicLetter | null>(null)
-=======
-import Modal from "../components/Modal"
-import { ARABIC_LETTERS } from "../utils/arabicLetters"
-import { useState } from "react"
-
-function Training() {
-    const [selectedLetter, setSelectedLetter] = useState<string | null>(null)
->>>>>>> f41826d9feb103a04bca853f45eb029dd579a986
 
     return (
         <div className="flex flex-col items-center">
