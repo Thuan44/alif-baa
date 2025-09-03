@@ -1,12 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Coiny&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
 @theme {
     --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
-    --font-heading: "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
-    --color-dark-200: #475467;
+    --font-heading: "Coiny", ui-sans-serif, system-ui, sans-serif;
+    --color-black: #0d0d0d;
+    --color-grey: #333333;
+    --color-primary: #60b5ff;
+    --color-secondary: #afddff;
+    --color-accent: #ffecdb;
+    --color-action: #ff9149;
+    --text-10: 10px;
+    --text-12: 12px;
     --text-16: 16px;
     --text-20: 20px;
     --text-24: 24px;
@@ -17,11 +24,12 @@
     --text-56: 56px;
     --text-64: 64px;
     --text-72: 72px;
+    --text-80: 80px;
     --spacing-0: 0;
-    --spacing-2: .125rem;
-    --spacing-4: .25rem;
-    --spacing-8: .5rem;
-    --spacing-12: .75rem;
+    --spacing-2: 0.125rem;
+    --spacing-4: 0.25rem;
+    --spacing-8: 0.5rem;
+    --spacing-12: 0.75rem;
     --spacing-16: 1rem;
     --spacing-20: 1.25rem;
     --spacing-24: 1.5rem;
@@ -39,4 +47,12 @@
     .padding-config {
         @apply pt-16 pb-60 px-24 md:px-32 lg:pt-24 xl:px-64;
     }
+}
+
+body {
+    @apply text-black;
+}
+
+h1 {
+    @apply text-80 font-heading text-accent;
 }

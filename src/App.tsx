@@ -1,15 +1,21 @@
+import { Routes, Route } from "react-router-dom"
+import Training from "./pages/Training"
+import Quiz from "./pages/Quiz"
+import Stats from "./pages/Stats"
+import Home from "./pages/Home"
+import BaseLayout from "./components/layout/BaseLayout"
+
 function App() {
     return (
-        <div className="app">
-            <div className="padding-config">
-                <h1 className="font-heading text-8xl">Hello World</h1>
-                <p className="font-sans text-16">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. A
-                    mollitia quis amet, facilis aspernatur maiores voluptates
-                    architecto. Consequuntur, inventore quisquam.
-                </p>
-            </div>
-        </div>
+        <BaseLayout>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/training" element={<Training />} />
+                <Route path="/quiz" element={<Quiz />} />
+                <Route path="/stats" element={<Stats />} />
+                <Route path="*" element={<div>Bienvenue !</div>} />
+            </Routes>
+        </BaseLayout>
     )
 }
 
