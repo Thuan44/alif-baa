@@ -10,11 +10,11 @@ const Navbar = () => {
     return (
         <nav className="flex justify-between p-32 bg-primary">
             {!isHome && (
-                <button className="btn-action" onClick={() => navigate(-1)}>
+                <button className="btn-action" onClick={() => navigate(-1)} aria-label="Retour à la page précédente">
                     <FontAwesomeIcon icon={faLeftLong} />
                 </button>
             )}
-            <button className="btn-action ml-auto">
+            <button className="btn-action ml-auto" aria-label="Afficher les statistiques">
                 <FontAwesomeIcon icon={faChartSimple} />
             </button>
         </nav>

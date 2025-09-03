@@ -1,5 +1,5 @@
 import LetterCard from "../components/cards/LetterCard"
-import LetterCardDetail from "../components/cards/LetterCardDetail"
+import LetterCardDetail from "../components/cards/LetterDetailCard"
 import Modal from "../components/Modal"
 import { ARABIC_LETTERS, type ArabicLetter } from "../utils/arabicLetters"
 import { useState } from "react"
@@ -33,7 +33,7 @@ function Training() {
                 isOpen={!!selectedLetter}
                 onClose={() => setSelectedLetter(null)}
             >
-                {selectedLetter && <LetterCardDetail letter={selectedLetter} />}
+                {selectedLetter && <LetterCardDetail letter={selectedLetter} onClose={() => setSelectedLetter(null)} />}
             </Modal>
         </div>
     )
