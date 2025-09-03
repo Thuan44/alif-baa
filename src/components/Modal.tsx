@@ -35,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                         exit={{ opacity: 0 }}
                     />
                     <motion.div
-                        className="relative z-10 rounded-xl shadow-xl min-w-[300px] min-h-[150px] flex flex-col items-center"
+                        className="relative z-10 rounded-xl shadow-xl flex flex-col items-center"
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
