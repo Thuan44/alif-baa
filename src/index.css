@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-heading: "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
+    --color-dark-200: #475467;
+    --text-16: 16px;
+    --text-20: 20px;
+    --text-24: 24px;
+    --text-28: 28px;
+    --text-32: 32px;
+    --text-36: 36px;
+    --text-44: 44px;
+    --text-56: 56px;
+    --text-64: 64px;
+    --text-72: 72px;
+    --spacing-0: 0;
+    --spacing-2: .125rem;
+    --spacing-4: .25rem;
+    --spacing-8: .5rem;
+    --spacing-12: .75rem;
+    --spacing-16: 1rem;
+    --spacing-20: 1.25rem;
+    --spacing-24: 1.5rem;
+    --spacing-32: 2rem;
+    --spacing-40: 2.5rem;
+    --spacing-48: 3rem;
+    --spacing-56: 3.5rem;
+    --spacing-60: 3.75rem;
+    --spacing-64: 4rem;
+    --spacing-72: 4.5rem;
+    --spacing-80: 5rem;
+}
+
+@layer utilities {
+    .padding-config {
+        @apply pt-16 pb-60 px-24 md:px-32 lg:pt-24 xl:px-64;
+    }
+}
