@@ -1,0 +1,32 @@
+export const ARABIC_LETTERS = [
+  "alif",
+  "baa",
+  "taa",
+  "thaa",
+  "jeem",
+  "ha",
+  "khaa",
+  "daal",
+  "dhaal",
+  "zay",
+  "raa",
+  "seen",
+  "sheen",
+  "saad",
+  "daad",
+  "tau",
+  "thau",
+  "ain",
+  "ghain",
+  "faa",
+  "qaaf",
+  "kaaf",
+  "laam",
+  "meem",
+  "noon",
+  "haa",
+  "waow",
+  "yaa"
+] as const;
+
+export type ArabicLetter = typeof ARABIC_LETTERS[number];

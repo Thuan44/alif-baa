@@ -4,7 +4,7 @@ import BaseCard from "../components/cards/BaseCard"
 
 const Home = () => {
     return (
-        <div className="max-w-[1000px] mx-auto flex flex-col items-center">
+        <div className="mx-auto flex flex-col items-center">
             <h1 className="text-center">Alif Baa</h1>
             <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-60">
                 <p className="subtitle text-center">

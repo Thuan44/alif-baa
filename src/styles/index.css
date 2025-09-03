@@ -68,7 +68,7 @@ body {
 }
 
 h1 {
-    @apply text-64 lg:text-80 font-heading text-white;
+    @apply text-44 lg:text-80 font-heading text-white;
 }
 
 h2 {
@@ -77,4 +77,8 @@ h2 {
 
 .subtitle {
     @apply text-20 font-semibold text-white;
+}
+
+button {
+    @apply cursor-pointer;
 }
