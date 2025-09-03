@@ -10,9 +10,9 @@ function App() {
         <BaseLayout>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/training" element={<Training />} />
-                <Route path="/quiz" element={<Quiz />} />
-                <Route path="/stats" element={<Stats />} />
+                <Route path="/entrainement" element={<Training />} />
+                <Route path="/quizz" element={<Quiz />} />
+                <Route path="/statistiques" element={<Stats />} />
                 <Route path="*" element={<div>Bienvenue !</div>} />
             </Routes>
         </BaseLayout>
