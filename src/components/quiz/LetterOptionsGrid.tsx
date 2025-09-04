@@ -4,12 +4,12 @@ import LetterCard from "../cards/LetterCard"
 
 const LetterOptionsGrid = ({
     selectedOption,
-    setSelectedOption,
     currentLetter,
+    handleSelectOption
 }: {
     selectedOption: ArabicLetter | null
-    setSelectedOption: (option: ArabicLetter | null) => void
     currentLetter: ArabicLetter | null
+    handleSelectOption: (e: React.ChangeEvent<HTMLInputElement>) => void
 }) => {
     const [options, setOptions] = useState<ArabicLetter[]>([])
 
@@ -20,7 +20,6 @@ const LetterOptionsGrid = ({
             const randomIndex = Math.floor(Math.random() * ARABIC_LETTERS.length)
             options.add(ARABIC_LETTERS[randomIndex])
         }
-        // shuffle options
         const shuffledOptions = Array.from(options).sort(() => Math.random() - 0.5)
         return shuffledOptions
     }
@@ -38,21 +37,23 @@ const LetterOptionsGrid = ({
             <div className="grid grid-cols-2 gap-12 w-full">
                 {options.map((option: ArabicLetter) => (
                 <button
-                    className={`w-full rounded-xl p-12 border-4 quick-transition ${
+                    className={`w-full h-[80px] rounded-xl border-4 quick-transition text-20 ${
                         selectedOption === option
-                            ? "border-action bg-accent"
-                            : "border-white/40 bg-secondary/40 hover:border-white"
+                            ? "border-action bg-accent text-black"
+                            : "border-white/40 bg-secondary/40 text-white hover:border-white"
                     }`}
                     key={option}
                 >
                     <input
                         type="radio"
                         id={option}
+                        value={option}
                         name="letter-option"
                         checked={selectedOption === option}
-                        onChange={() => setSelectedOption(option)}
+                        onChange={handleSelectOption}
+                        className="hidden size-full"
                     />
-                    <label htmlFor={option}>{option}</label>
+                    <label htmlFor={option} className="flex items-center justify-center size-full cursor-pointer">{option}</label>
                 </button>
                 ))}
             </div>

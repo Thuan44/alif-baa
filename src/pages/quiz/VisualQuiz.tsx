@@ -4,10 +4,12 @@ import CountDown from "../../components/quiz/CountDown"
 import Timer from "../../components/quiz/Timer"
 import LetterCounter from "../../components/quiz/LetterCounter"
 import LetterOptionsGrid from "../../components/quiz/LetterOptionsGrid"
+import GameOver from "../../components/quiz/GameOver"
 
 const VisualQuiz = () => {
     const [count, setCount] = useState(1)
     const [gameStarted, setGameStarted] = useState(false)
+    const [gameOver, setGameOver] = useState(true)
     const [showCountdown, setShowCountdown] = useState(false)
     const [countdown, setCountdown] = useState(3)
     const [selectedOption, setSelectedOption] = useState<ArabicLetter | null>(
@@ -17,6 +19,7 @@ const VisualQuiz = () => {
     const [currentLetter, setCurrentLetter] = useState<ArabicLetter | null>(
         null
     )
+    const [score, setScore] = useState(0)
 
     const handleGameStart = () => {
         setShowCountdown(true)
@@ -33,18 +36,40 @@ const VisualQuiz = () => {
         setCurrentLetter(null)
     }
 
+    const pickRandomLetter = (): ArabicLetter => {
+        const available = ARABIC_LETTERS.filter(
+            (l) => !passedLetters.includes(l)
+        )
+        const randomIndex = Math.floor(Math.random() * available.length)
+        return available[randomIndex]
+    }
+
     const getRandomLetter = (): ArabicLetter | null => {
         if (passedLetters.length === ARABIC_LETTERS.length) {
-            console.log("Game Over")
+            setGameOver(true)
             return null
         }
-        const letters = ARABIC_LETTERS
-        const randomIndex = Math.floor(Math.random() * letters.length)
-        if (passedLetters.includes(letters[randomIndex])) {
-            return getRandomLetter()
-        }
-        setPassedLetters((prev) => [...prev, letters[randomIndex]])
-        return letters[randomIndex] as ArabicLetter
+        const letter = pickRandomLetter()
+        setPassedLetters((prev) => [...prev, letter])
+        return letter
+    }
+
+    const checkAnswer = (selected: ArabicLetter) => {
+        if (!currentLetter) return false
+        const isCorrect = selected === currentLetter
+        if (isCorrect) setScore((s) => s + 1)
+        setTimeout(() => {
+            setSelectedOption(null)
+            setCurrentLetter(getRandomLetter())
+            setCount((c) => c + 1)
+        }, 800)
+        return isCorrect
+    }
+
+    const handleSelectOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedValue = e.target.value as ArabicLetter
+        setSelectedOption(selectedValue)
+        checkAnswer(selectedValue)
     }
 
     useEffect(() => {
@@ -62,7 +87,7 @@ const VisualQuiz = () => {
                 </p>
             </div>
 
-            {gameStarted && !showCountdown && (
+            {gameStarted && !showCountdown && !gameOver && (
                 <div className="flex justify-between items-center w-full max-w-[500px]  mb-60">
                     <Timer
                         gameStarted={gameStarted}
@@ -72,7 +97,7 @@ const VisualQuiz = () => {
                 </div>
             )}
 
-            {!gameStarted && (
+            {!gameStarted && !gameOver && (
                 <CountDown
                     showCountdown={showCountdown}
                     countdown={countdown}
@@ -83,13 +108,15 @@ const VisualQuiz = () => {
                 />
             )}
 
-            {gameStarted && !showCountdown && (
+            {gameStarted && !showCountdown && !gameOver && (
                 <LetterOptionsGrid
                     selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
                     currentLetter={currentLetter}
+                    handleSelectOption={(e) => handleSelectOption(e)}
                 />
             )}
+
+            {gameOver && <GameOver />}
         </div>
     )
 }
@@ -97,9 +124,8 @@ const VisualQuiz = () => {
 // TODO:
 // 1. Add timer feature ✅
 // 2. Display random letter ✅
-// 3. Show correct/wrong answer feedback
-// 4. Increment score after each question
-// 5. Track score
-// 6. End game after 28 questions and show final score with feedback for each letter
+// 3. Increment score after each question ✅
+// 4. Track score
+// 5. End game after 28 questions and show final score with feedback for each letter ✅
 
 export default VisualQuiz
