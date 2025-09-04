@@ -3,7 +3,7 @@ import type { ArabicLetter } from "../../utils/arabicLetters"
 let currentAudio: HTMLAudioElement | null = null
 
 interface LetterCardProps {
-    letter: ArabicLetter;
+    letter: ArabicLetter | null;
     onClick?: () => void;
     single?: boolean;
 }

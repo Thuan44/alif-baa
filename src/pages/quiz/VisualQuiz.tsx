@@ -24,7 +24,7 @@ const VisualQuiz = () => {
     }
 
     const restartGame = () => {
-        setCount(0)
+        setCount(1)
         setGameStarted(false)
         setShowCountdown(false)
         setCountdown(3)
