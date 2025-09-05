@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { useQuizStore } from "../../store/quiz.store"
 
 interface TimerProps {
     gameStarted: boolean
@@ -7,9 +8,15 @@ interface TimerProps {
     onTimerStop?: () => void
 }
 
-const Timer = ({ gameStarted, showCountdown, onTimerStart, onTimerStop }: TimerProps) => {
+const Timer = ({
+    gameStarted,
+    showCountdown,
+    onTimerStart,
+    onTimerStop,
+}: TimerProps) => {
     const [timer, setTimer] = useState(0)
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+    const setTimerStore = useQuizStore((s) => s.setTimer)
 
     useEffect(() => {
         if (gameStarted && !showCountdown) {
@@ -17,14 +24,14 @@ const Timer = ({ gameStarted, showCountdown, onTimerStart, onTimerStop }: TimerP
                 intervalRef.current = setInterval(() => {
                     setTimer((t) => t + 1)
                 }, 1000)
-            if (onTimerStart) onTimerStart()
+                if (onTimerStart) onTimerStart()
             }
         } else {
             if (intervalRef.current) {
                 clearInterval(intervalRef.current)
                 intervalRef.current = null
                 setTimer(0)
-            if (onTimerStop) onTimerStop()
+                if (onTimerStop) onTimerStop()
             }
         }
         return () => {
@@ -34,6 +41,10 @@ const Timer = ({ gameStarted, showCountdown, onTimerStart, onTimerStop }: TimerP
             }
         }
     }, [gameStarted, showCountdown])
+
+    useEffect(() =>{
+        setTimerStore(timer)
+    }, [timer])
 
     const minutes = String(Math.floor(timer / 60)).padStart(2, "0")
     const seconds = String(timer % 60).padStart(2, "0")

@@ -5,11 +5,12 @@ import Timer from "../../components/quiz/Timer"
 import LetterCounter from "../../components/quiz/LetterCounter"
 import LetterOptionsGrid from "../../components/quiz/LetterOptionsGrid"
 import GameOver from "../../components/quiz/GameOver"
+import { useQuizStore } from "../../store/quiz.store"
 
 const VisualQuiz = () => {
     const [count, setCount] = useState(1)
     const [gameStarted, setGameStarted] = useState(false)
-    const [gameOver, setGameOver] = useState(true)
+    const [gameOver, setGameOver] = useState(false)
     const [showCountdown, setShowCountdown] = useState(false)
     const [countdown, setCountdown] = useState(3)
     const [selectedOption, setSelectedOption] = useState<ArabicLetter | null>(
@@ -20,6 +21,7 @@ const VisualQuiz = () => {
         null
     )
     const [score, setScore] = useState(0)
+    const setScoreStore = useQuizStore((s) => s.setScore)
 
     const handleGameStart = () => {
         setShowCountdown(true)
@@ -45,10 +47,6 @@ const VisualQuiz = () => {
     }
 
     const getRandomLetter = (): ArabicLetter | null => {
-        if (passedLetters.length === ARABIC_LETTERS.length) {
-            setGameOver(true)
-            return null
-        }
         const letter = pickRandomLetter()
         setPassedLetters((prev) => [...prev, letter])
         return letter
@@ -59,6 +57,10 @@ const VisualQuiz = () => {
         const isCorrect = selected === currentLetter
         if (isCorrect) setScore((s) => s + 1)
         setTimeout(() => {
+            if (passedLetters.length === ARABIC_LETTERS.length) {
+                setGameOver(true)
+                return null
+            }
             setSelectedOption(null)
             setCurrentLetter(getRandomLetter())
             setCount((c) => c + 1)
@@ -78,14 +80,20 @@ const VisualQuiz = () => {
         }
     }, [gameStarted])
 
+    useEffect(() => {
+        setScoreStore(score)
+    },[score])
+
     return (
         <div className="flex flex-col items-center">
             <h1 className="text-center">Quizz visuel</h1>
-            <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-60">
-                <p className="subtitle text-center">
-                    Observe la lettre et choisis la bonne réponse.
-                </p>
-            </div>
+            {!gameOver && (
+                <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-60">
+                    <p className="subtitle text-center">
+                        Observe la lettre et choisis la bonne réponse.
+                    </p>
+                </div>
+            )}
 
             {gameStarted && !showCountdown && !gameOver && (
                 <div className="flex justify-between items-center w-full max-w-[500px]  mb-60">
@@ -125,7 +133,7 @@ const VisualQuiz = () => {
 // 1. Add timer feature ✅
 // 2. Display random letter ✅
 // 3. Increment score after each question ✅
-// 4. Track score
+// 4. Track time and score
 // 5. End game after 28 questions and show final score with feedback for each letter ✅
 
 export default VisualQuiz

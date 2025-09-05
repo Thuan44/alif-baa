@@ -6,23 +6,28 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
 import { motion } from "framer-motion"
+import { useQuizStore } from "../../store/quiz.store"
 
 const GameOver = () => {
     const [showDetail, setShowDetail] = useState(false)
+    const { timer, score } = useQuizStore((state) => state)
+
+    const minutes = String(Math.floor(timer / 60)).padStart(2, "0")
+    const seconds = String(timer % 60).padStart(2, "0")
 
     return (
-        <div className="flex flex-col items-center gap-32">
+        <div className="flex flex-col items-center gap-32 mt-60">
             <div className="text-24 text-white text-center">
                 <p>Bien joué ! Ta partie est terminée.</p>
             </div>
             <div className="flex flex-col items-center gap-32 max-w-[500px] min-w-[400px] text-24 text-black bg-accent p-32 rounded-lg">
                 <div className="flex items-center gap-12">
-                    Ton temps :{" "}
-                    <span className="text-44 font-semibold">12:00</span>
+                    Ton temps :
+                    <span className="text-44 font-semibold">{minutes}:{seconds}</span>
                 </div>
                 <div className="flex items-center gap-12">
-                    Ton score :{" "}
-                    <span className="text-44 font-semibold">20/28</span>
+                    Ton score :
+                    <span className="text-44 font-semibold">{score}/28</span>
                 </div>
             </div>
             <button className="btn-action small p-12">
