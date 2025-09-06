@@ -22,20 +22,26 @@ const VisualQuiz = () => {
     )
     const [score, setScore] = useState(0)
     const setScoreStore = useQuizStore((s) => s.setScore)
+    const setFeedbackVisual = useQuizStore((s) => s.setFeedbackVisual)
+    const clearQuiz = useQuizStore((s) => s.clearQuiz)
 
     const handleGameStart = () => {
         setShowCountdown(true)
         setCountdown(3)
+        clearQuiz()
     }
 
-    const restartGame = () => {
+    const restartQuiz = () => {
         setCount(1)
+        setScore(0)
+        setGameOver(false)
         setGameStarted(false)
         setShowCountdown(false)
         setCountdown(3)
         setSelectedOption(null)
         setPassedLetters([])
         setCurrentLetter(null)
+        clearQuiz()
     }
 
     const pickRandomLetter = (): ArabicLetter => {
@@ -57,6 +63,9 @@ const VisualQuiz = () => {
         const isCorrect = selected === currentLetter
         if (isCorrect) setScore((s) => s + 1)
         setTimeout(() => {
+            if (passedLetters.length === 2) {
+                setGameOver(true)
+            }
             if (passedLetters.length === ARABIC_LETTERS.length) {
                 setGameOver(true)
                 return null
@@ -72,6 +81,7 @@ const VisualQuiz = () => {
         const selectedValue = e.target.value as ArabicLetter
         setSelectedOption(selectedValue)
         checkAnswer(selectedValue)
+        if (currentLetter) setFeedbackVisual(currentLetter, selectedValue)
     }
 
     useEffect(() => {
@@ -82,7 +92,7 @@ const VisualQuiz = () => {
 
     useEffect(() => {
         setScoreStore(score)
-    },[score])
+    }, [score])
 
     return (
         <div className="flex flex-col items-center">
@@ -101,7 +111,7 @@ const VisualQuiz = () => {
                         gameStarted={gameStarted}
                         showCountdown={showCountdown}
                     />
-                    <LetterCounter count={count} restartGame={restartGame} />
+                    <LetterCounter count={count} restartQuiz={restartQuiz} />
                 </div>
             )}
 
@@ -124,16 +134,9 @@ const VisualQuiz = () => {
                 />
             )}
 
-            {gameOver && <GameOver />}
+            {gameOver && <GameOver restartQuiz={restartQuiz} />}
         </div>
     )
 }
-
-// TODO:
-// 1. Add timer feature ✅
-// 2. Display random letter ✅
-// 3. Increment score after each question ✅
-// 4. Track time and score
-// 5. End game after 28 questions and show final score with feedback for each letter ✅
 
 export default VisualQuiz
