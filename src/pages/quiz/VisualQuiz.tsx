@@ -25,8 +25,14 @@ const VisualQuiz = () => {
         setCurrentLetter,
         setScoreStore,
         getRandomLetter,
-        handleSelectOption
+        handleSelectOption,
     } = useQuiz()
+
+    useEffect(() => {
+        if (gameStarted) {
+            setCurrentLetter(getRandomLetter())
+        }
+    }, [gameStarted])
 
     useEffect(() => {
         if (selectedOption === null && gameStarted && !gameOver) {
@@ -34,12 +40,6 @@ const VisualQuiz = () => {
             setCount((c) => c + 1)
         }
     }, [selectedOption])
-
-    useEffect(() => {
-        if (gameStarted) {
-            setCurrentLetter(getRandomLetter())
-        }
-    }, [gameStarted])
 
     useEffect(() => {
         setScoreStore(score)

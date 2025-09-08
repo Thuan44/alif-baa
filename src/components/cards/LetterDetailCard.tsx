@@ -2,21 +2,12 @@ import { faLanguage, faVolumeHigh, faXmark } from "@fortawesome/free-solid-svg-i
 import type { ArabicLetter } from "../../utils/arabicLetters"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
+import { useQuiz } from "../../hooks/useQuiz"
 
 
 const LetterCardDetail = ({ letter, onClose }: { letter: ArabicLetter, onClose: () => void }) => {
     const [showTransliteration, setShowTransliteration] = useState(false)
-    let currentAudio: HTMLAudioElement | null = null
-
-    const handleClickAudio = () => {
-        if (currentAudio) {
-            currentAudio.pause()
-            currentAudio.currentTime = 0
-        }
-        const audio = new Audio(`/audios/${letter}.wav`)
-        currentAudio = audio
-        audio.play()
-    }
+    const { handleClickAudio } = useQuiz()
 
     return (
         <div className="relative bg-accent rounded-xl p-32 flex flex-col items-center justify-center gap-24 w-[95vw] max-w-[700px] h-[500px]">
@@ -50,7 +41,7 @@ const LetterCardDetail = ({ letter, onClose }: { letter: ArabicLetter, onClose: 
                 </button>
                 <button
                     className="btn-action w-[80px]"
-                    onClick={handleClickAudio}
+                    onClick={() => handleClickAudio(letter)}
                     aria-label="Lire le son de la lettre"
                 >
                     <FontAwesomeIcon icon={faVolumeHigh} />

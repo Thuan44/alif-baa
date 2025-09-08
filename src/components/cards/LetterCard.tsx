@@ -1,32 +1,29 @@
+import { useQuiz } from "../../hooks/useQuiz"
 import type { ArabicLetter } from "../../utils/arabicLetters"
-
-let currentAudio: HTMLAudioElement | null = null
 
 interface LetterCardProps {
     letter: ArabicLetter | null
-    onClick?: () => void
+    onClick?: (letter: ArabicLetter | null) => void
     single?: boolean
+    inQuiz?: boolean
+    selectedOption?: ArabicLetter | null
 }
 
-const LetterCard = ({ letter, onClick, single }: LetterCardProps) => {
+const LetterCard = ({ letter, onClick, single, inQuiz, selectedOption }: LetterCardProps) => {
+    const { handleClickAudio } = useQuiz()
+
     const handleClick = () => {
-        if (currentAudio) {
-            currentAudio.pause()
-            currentAudio.currentTime = 0
-        }
-        const audio = new Audio(`/audios/${letter}.wav`)
-        currentAudio = audio
-        audio.play()
-        if (onClick) onClick()
+        if (!inQuiz) handleClickAudio(letter)
+        if (onClick) onClick(letter)
     }
 
     const content = (
         <div
-            className={`bg-accent rounded-xl p-4 lg:p-8 xl:p-12 flex items-center justify-center lg:h-[220px] base-transition ${
+            className={`bg-accent rounded-xl p-4 lg:p-8 xl:p-12 flex items-center justify-center lg:h-[220px] base-transition border-5 ${
                 single
                     ? "h-[200px]"
                     : "h-[100px] md:h-[150px] hover:shadow-md hover:-translate-y-4.5"
-            }`}
+            }  ${inQuiz && (letter === selectedOption) ? "border-action" : "border-transparent"}`}
         >
             <div
                 className={`w-[90%] lg:w-full max-w-[200px] h-auto ${
@@ -44,7 +41,9 @@ const LetterCard = ({ letter, onClick, single }: LetterCardProps) => {
     return single ? (
         <div>{content}</div>
     ) : (
-        <button onClick={handleClick}>{content}</button>
+        <button onClick={handleClick} className={` quick-transition`}>
+            {content}
+        </button>
     )
 }
 

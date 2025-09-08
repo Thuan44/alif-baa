@@ -20,11 +20,22 @@ export function useQuiz() {
     const setScoreStore = useQuizStore((s) => s.setScore)
     const setFeedbackVisual = useQuizStore((s) => s.setFeedbackVisual)
     const clearQuiz = useQuizStore((s) => s.clearQuiz)
+    let currentAudio: HTMLAudioElement | null = null
 
     const handleGameStart = () => {
         setShowCountdown(true)
         setCountdown(3)
         clearQuiz()
+    }
+
+        const handleClickAudio = (letter: ArabicLetter | null) => {
+        if (currentAudio) {
+            currentAudio.pause()
+            currentAudio.currentTime = 0
+        }
+        const audio = new Audio(`/audios/${letter}.wav`)
+        currentAudio = audio
+        audio.play()
     }
 
     const restartQuiz = () => {
@@ -68,11 +79,10 @@ export function useQuiz() {
         return isCorrect
     }
 
-    const handleSelectOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedValue = e.target.value as ArabicLetter
-        setSelectedOption(selectedValue)
-        checkAnswer(selectedValue)
-        if (currentLetter) setFeedbackVisual(currentLetter, selectedValue)
+    const handleSelectOption = (letter: ArabicLetter) => {
+        setSelectedOption(letter)
+        checkAnswer(letter)
+        if (currentLetter) setFeedbackVisual(currentLetter, letter)
     }
 
     return {
@@ -93,12 +103,14 @@ export function useQuiz() {
         currentLetter,
         setCurrentLetter,
         score,
+        currentAudio,
         setScore,
         setScoreStore,
         handleGameStart,
         restartQuiz,
         setFeedbackVisual,
         getRandomLetter,
-        handleSelectOption
+        handleSelectOption,
+        handleClickAudio
     }
 }
