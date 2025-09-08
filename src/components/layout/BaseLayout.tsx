@@ -1,3 +1,4 @@
+import Footer from "../Footer"
 import Navbar from "../Navbar"
 
 const BaseLayout = ({ children }: { children: React.ReactNode }) => (
@@ -6,6 +7,7 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => (
         <main className="padding-config bg-primary min-h-screen">
             {children}
         </main>
+        <Footer />
     </div>
 )
 
