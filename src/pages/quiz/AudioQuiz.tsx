@@ -53,55 +53,65 @@ const AudioQuiz = () => {
     }, [currentLetter])
 
     return (
-        <div className="flex flex-col items-center">
-            <h1 className="text-center">Quizz audio</h1>
-            {!gameOver && (
-                <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-60">
-                    <p className="subtitle text-center">
-                        Écoute la lettre et choisis la bonne lettre.
-                    </p>
-                </div>
-            )}
+        <>
+            <title>Alifbaa – Quiz Audio</title>
+            <meta
+                name="description"
+                content="Apprends les lettres arabes en écoutant leur prononciation avec le quiz audio Alif Baa."
+            ></meta>
+            <div className="flex flex-col items-center">
+                <h1 className="text-center">Quizz audio</h1>
+                {!gameOver && (
+                    <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-60">
+                        <p className="subtitle text-center">
+                            Écoute et choisis la bonne lettre.
+                        </p>
+                    </div>
+                )}
 
-            {gameStarted && !showCountdown && !gameOver && (
-                <div className="flex justify-between items-center w-full max-w-[500px]  mb-60">
-                    <Timer
-                        gameStarted={gameStarted}
+                {gameStarted && !showCountdown && !gameOver && (
+                    <div className="flex justify-between items-center w-full max-w-[500px]  mb-60">
+                        <Timer
+                            gameStarted={gameStarted}
+                            showCountdown={showCountdown}
+                        />
+                        <LetterCounter
+                            count={count}
+                            restartQuiz={restartQuiz}
+                        />
+                    </div>
+                )}
+
+                {!gameStarted && !gameOver && (
+                    <CountDown
                         showCountdown={showCountdown}
+                        countdown={countdown}
+                        setCountdown={setCountdown}
+                        setShowCountdown={setShowCountdown}
+                        setGameStarted={setGameStarted}
+                        handleGameStart={handleGameStart}
                     />
-                    <LetterCounter count={count} restartQuiz={restartQuiz} />
-                </div>
-            )}
+                )}
 
-            {!gameStarted && !gameOver && (
-                <CountDown
-                    showCountdown={showCountdown}
-                    countdown={countdown}
-                    setCountdown={setCountdown}
-                    setShowCountdown={setShowCountdown}
-                    setGameStarted={setGameStarted}
-                    handleGameStart={handleGameStart}
-                />
-            )}
+                {gameStarted && !showCountdown && !gameOver && (
+                    <div className="flex flex-col items-center gap-32 w-full">
+                        <button
+                            className="btn-action w-[80px]"
+                            onClick={() => handleClickAudio(currentLetter)}
+                            aria-label="Lire le son de la lettre"
+                        >
+                            <FontAwesomeIcon icon={faVolumeHigh} />
+                        </button>
+                        <LetterAlphabetGrid
+                            selectedOption={selectedOption}
+                            handleSelectOption={handleSelectOption}
+                        />
+                    </div>
+                )}
 
-            {gameStarted && !showCountdown && !gameOver && (
-                <div className="flex flex-col items-center gap-32 w-full">
-                    <button
-                        className="btn-action w-[80px]"
-                        onClick={() => handleClickAudio(currentLetter)}
-                        aria-label="Lire le son de la lettre"
-                    >
-                        <FontAwesomeIcon icon={faVolumeHigh} />
-                    </button>
-                    <LetterAlphabetGrid
-                        selectedOption={selectedOption}
-                        handleSelectOption={handleSelectOption}
-                    />
-                </div>
-            )}
-
-            {gameOver && <GameOver restartQuiz={restartQuiz} isAudioQuiz />}
-        </div>
+                {gameOver && <GameOver restartQuiz={restartQuiz} isAudioQuiz />}
+            </div>
+        </>
     )
 }
 
