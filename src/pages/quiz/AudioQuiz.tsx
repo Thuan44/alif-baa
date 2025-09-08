@@ -9,6 +9,10 @@ import { useEffect } from "react"
 import LetterAlphabetGrid from "../../components/quiz/LetterAlphabetGrid"
 
 const AudioQuiz = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, [])
+
     const {
         count,
         gameStarted,

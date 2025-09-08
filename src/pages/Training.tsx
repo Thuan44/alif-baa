@@ -2,12 +2,16 @@ import LetterCard from "../components/cards/LetterCard"
 import LetterCardDetail from "../components/cards/LetterDetailCard"
 import Modal from "../components/Modal"
 import { ARABIC_LETTERS, type ArabicLetter } from "../utils/arabicLetters"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function Training() {
     const [selectedLetter, setSelectedLetter] = useState<ArabicLetter | null>(
         null
     )
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, [])
 
     return (
         <>

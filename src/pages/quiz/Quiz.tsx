@@ -1,15 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import BaseCard from "../../components/cards/BaseCard"
 import { faEarListen, faEye } from "@fortawesome/free-solid-svg-icons"
+import { useEffect } from "react"
 
 function Quiz() {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, [])
+
     return (
         <>
-                <title>Alif Baa – Quiz</title>
-                <meta
-                    name="description"
-                    content="Teste tes connaissances en lettres arabes avec les quiz interactifs Alif Baa. Mode Visuel et Audio disponibles."
-                ></meta>
+            <title>Alif Baa – Quiz</title>
+            <meta
+                name="description"
+                content="Teste tes connaissances en lettres arabes avec les quiz interactifs Alif Baa. Mode Visuel et Audio disponibles."
+            ></meta>
             <div className="flex flex-col items-center">
                 <h1 className="text-center">Quizz</h1>
                 <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-60">

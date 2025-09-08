@@ -1,8 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faDumbbell, faLightbulb } from "@fortawesome/free-solid-svg-icons"
 import BaseCard from "../components/cards/BaseCard"
+import { useEffect } from "react"
 
 const Home = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, [])
+
     return (
         <>
             <title>Alif Baa</title>

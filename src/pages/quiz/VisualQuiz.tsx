@@ -7,6 +7,10 @@ import GameOver from "../../components/quiz/GameOver"
 import { useQuiz } from "../../hooks/useQuiz"
 
 const VisualQuiz = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, [])
+
     const {
         count,
         score,
