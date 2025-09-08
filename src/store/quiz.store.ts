@@ -10,7 +10,7 @@ interface QuizState {
   }
   setTimer: (time: number) => void
   setScore: (score: number) => void
-  setFeedbackVisual: (currentLetter: ArabicLetter, selectedLetter: string) => void
+  setFeedback: (currentLetter: ArabicLetter, selectedLetter: string) => void
   clearQuiz: () => void
 }
 
@@ -21,7 +21,7 @@ export const useQuizStore = create<QuizState>()(
         feedbackVisual: {},
         setTimer: (t: number) => set({ timer: t }),
         setScore: (s: number) => set({score: s}),
-        setFeedbackVisual: (currentLetter: ArabicLetter, selectedLetter: string) => set((state) => {
+        setFeedback: (currentLetter: ArabicLetter, selectedLetter: string) => set((state) => {
           const key = (Object.keys(state.feedbackVisual).length + 1).toString();
           return {
             feedbackVisual: {

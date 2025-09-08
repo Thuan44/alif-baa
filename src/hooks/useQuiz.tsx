@@ -18,7 +18,7 @@ export function useQuiz() {
     const [score, setScore] = useState(0)
 
     const setScoreStore = useQuizStore((s) => s.setScore)
-    const setFeedbackVisual = useQuizStore((s) => s.setFeedbackVisual)
+    const setFeedback = useQuizStore((s) => s.setFeedback)
     const clearQuiz = useQuizStore((s) => s.clearQuiz)
     let currentAudio: HTMLAudioElement | null = null
 
@@ -82,7 +82,7 @@ export function useQuiz() {
     const handleSelectOption = (letter: ArabicLetter) => {
         setSelectedOption(letter)
         checkAnswer(letter)
-        if (currentLetter) setFeedbackVisual(currentLetter, letter)
+        if (currentLetter) setFeedback(currentLetter, letter)
     }
 
     return {
@@ -108,7 +108,7 @@ export function useQuiz() {
         setScoreStore,
         handleGameStart,
         restartQuiz,
-        setFeedbackVisual,
+        setFeedback,
         getRandomLetter,
         handleSelectOption,
         handleClickAudio

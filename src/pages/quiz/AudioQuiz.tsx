@@ -2,12 +2,11 @@ import Timer from "../../components/quiz/Timer"
 import LetterCounter from "../../components/quiz/LetterCounter"
 import CountDown from "../../components/quiz/CountDown"
 import { useQuiz } from "../../hooks/useQuiz"
-import { ARABIC_LETTERS } from "../../utils/arabicLetters"
-import LetterCard from "../../components/cards/LetterCard"
 import GameOver from "../../components/quiz/GameOver"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons"
 import { useEffect } from "react"
+import LetterAlphabetGrid from "../../components/quiz/LetterAlphabetGrid"
 
 const AudioQuiz = () => {
     const {
@@ -23,12 +22,12 @@ const AudioQuiz = () => {
         setCount,
         setShowCountdown,
         setGameStarted,
-        handleSelectOption,
         handleGameStart,
         restartQuiz,
         setCurrentLetter,
         getRandomLetter,
         setScoreStore,
+        handleSelectOption,
         handleClickAudio,
     } = useQuiz()
 
@@ -39,7 +38,6 @@ const AudioQuiz = () => {
     }, [gameStarted])
 
     useEffect(() => {
-        console.log('selected option', selectedOption)
         if (selectedOption === null && gameStarted && !gameOver) {
             setCurrentLetter(getRandomLetter())
             setCount((c) => c + 1)
@@ -49,6 +47,10 @@ const AudioQuiz = () => {
     useEffect(() => {
         setScoreStore(score)
     }, [score])
+
+    useEffect(() => {
+        if (currentLetter) handleClickAudio(currentLetter)
+    }, [currentLetter])
 
     return (
         <div className="flex flex-col items-center">
@@ -91,24 +93,14 @@ const AudioQuiz = () => {
                     >
                         <FontAwesomeIcon icon={faVolumeHigh} />
                     </button>
-                    <div
-                        className="grid grid-cols-4 lg:grid-cols-7 gap-8 lg:gap-12 xl:gap-24 w-full"
-                        style={{ direction: "rtl" }}
-                    >
-                        {[...ARABIC_LETTERS].map((letter) => (
-                            <LetterCard
-                                key={letter}
-                                letter={letter}
-                                onClick={() => handleSelectOption(letter)}
-                                inQuiz
-                                selectedOption={selectedOption}
-                            />
-                        ))}
-                    </div>
+                    <LetterAlphabetGrid
+                        selectedOption={selectedOption}
+                        handleSelectOption={handleSelectOption}
+                    />
                 </div>
             )}
 
-            {gameOver && <GameOver restartQuiz={restartQuiz} />}
+            {gameOver && <GameOver restartQuiz={restartQuiz} isAudioQuiz />}
         </div>
     )
 }
@@ -116,9 +108,10 @@ const AudioQuiz = () => {
 export default AudioQuiz
 
 // TODO:
-// 1. Jouer l'audio à chaque nouvelle lettre
-// 2. Mettre en évidence la lettre sélectionnée,
-// 3. Incrémenter le compteur
-// 4. Passer à la lettre suivante
-// 5. Conserver le timer et le score
-// 6. Afficher le feedback
+// 1. Jouer l'audio à chaque nouvelle lettre ✅
+// 2. Mettre en évidence la lettre sélectionnée ✅
+// 3. Incrémenter le compteur ✅
+// 4. Passer à la lettre suivante ✅
+// 5. Conserver le timer et le score ✅
+// 6. Afficher le feedback ✅
+// 7. Eviter la sélection d'une lettre en attendant la suivante

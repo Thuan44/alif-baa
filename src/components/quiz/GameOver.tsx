@@ -9,7 +9,13 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { useQuizStore } from "../../store/quiz.store"
 
-const GameOver = ({ restartQuiz }: { restartQuiz: () => void }) => {
+const GameOver = ({
+    restartQuiz,
+    isAudioQuiz,
+}: {
+    restartQuiz: () => void
+    isAudioQuiz?: boolean
+}) => {
     const [showDetail, setShowDetail] = useState(false)
     const { timer, score, feedbackVisual } = useQuizStore((state) => state)
     const listFeedbackVisual = Object.values(feedbackVisual)
@@ -78,14 +84,23 @@ const GameOver = ({ restartQuiz }: { restartQuiz: () => void }) => {
                                 ({fb[0]})
                             </div>
                             <div className="flex items-center gap-4 lg:gap-12">
-                                <div>
+                                <div className="flex items-center">
                                     <span className="hidden lg:inline-block">
                                         Ta réponse
                                     </span>
                                     <span className="inline-block lg:hidden">
                                         Toi
                                     </span>{" "}
-                                    : {fb[1]}
+                                    :{" "}
+                                    {isAudioQuiz ? (
+                                        <img
+                                            src={`/images/${fb[1]}.png`}
+                                            alt=""
+                                            className="w-40 lg:w-48"
+                                        />
+                                    ) : (
+                                        fb[1]
+                                    )}
                                 </div>
                                 <FontAwesomeIcon
                                     icon={fb[0] === fb[1] ? faCheck : faXmark}
