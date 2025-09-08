@@ -32,12 +32,13 @@ const Navbar = () => {
                 </Link>
             )}
 
-            <button
+            <Link
+                to='/statistiques'
                 className={`btn-action ${isHome ? "ml-auto" : ""}`}
                 aria-label="Afficher les statistiques"
             >
                 <FontAwesomeIcon icon={faChartSimple} />
-            </button>
+            </Link>
         </nav>
     )
 }
