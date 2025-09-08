@@ -22,7 +22,7 @@ function Training() {
             />
             <div className="flex flex-col items-center">
                 <h1 className="text-center">Entraînement</h1>
-                <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-60">
+                <div className="flex items-center justify-center py-12 px-24 rounded-xl bg-secondary/40 w-fit mb-40 lg:mb-60">
                     <p className="subtitle text-center">
                         Choisis une lettre pour en apprendre plus à son sujet.
                     </p>
