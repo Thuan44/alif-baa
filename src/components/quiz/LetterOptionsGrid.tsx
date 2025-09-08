@@ -9,7 +9,7 @@ const LetterOptionsGrid = ({
 }: {
     selectedOption: ArabicLetter | null
     currentLetter: ArabicLetter | null
-    handleSelectOption: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleSelectOption: (letter: ArabicLetter) => void
 }) => {
     const [options, setOptions] = useState<ArabicLetter[]>([])
 
@@ -50,7 +50,7 @@ const LetterOptionsGrid = ({
                         value={option}
                         name="letter-option"
                         checked={selectedOption === option}
-                        onChange={handleSelectOption}
+                        onChange={() => handleSelectOption(option)}
                         className="hidden size-full"
                     />
                     <label htmlFor={option} className="flex items-center justify-center size-full cursor-pointer">{option}</label>
