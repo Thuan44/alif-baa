@@ -11,7 +11,7 @@ const LetterAlphabetGrid = ({selectedOption, handleSelectOption}: {selectedOptio
                 <LetterCard
                     key={letter}
                     letter={letter}
-                    onClick={() => handleSelectOption(letter)}
+                    onClick={selectedOption === null ? () => handleSelectOption(letter) : null}
                     inQuiz
                     selectedOption={selectedOption}
                 />

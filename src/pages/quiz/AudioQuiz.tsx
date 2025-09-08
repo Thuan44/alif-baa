@@ -106,12 +106,3 @@ const AudioQuiz = () => {
 }
 
 export default AudioQuiz
-
-// TODO:
-// 1. Jouer l'audio à chaque nouvelle lettre ✅
-// 2. Mettre en évidence la lettre sélectionnée ✅
-// 3. Incrémenter le compteur ✅
-// 4. Passer à la lettre suivante ✅
-// 5. Conserver le timer et le score ✅
-// 6. Afficher le feedback ✅
-// 7. Eviter la sélection d'une lettre en attendant la suivante

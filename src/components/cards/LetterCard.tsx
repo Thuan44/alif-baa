@@ -3,7 +3,7 @@ import type { ArabicLetter } from "../../utils/arabicLetters"
 
 interface LetterCardProps {
     letter: ArabicLetter | null
-    onClick?: (letter: ArabicLetter | null) => void
+    onClick?: ((letter: ArabicLetter | null) => void) | null
     single?: boolean
     inQuiz?: boolean
     selectedOption?: ArabicLetter | null
